@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="description" content="YENIFY — Premium Black and Pink Music Streaming Application" />
+  <title>YENIFY — Feel Every Beat</title>
+
+  <!-- Google Fonts: Space Grotesk (Headings) & Manrope (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Mobile Sidebar Backdrop -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+
+  <!-- Main Application Shell -->
+  <div class="app-shell" id="appShell">
+    
+    <!-- ==================== LEFT NAVIGATION SIDEBAR ==================== -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary Navigation">
+      <div class="sidebar-header">
+        <a href="#top" class="brand" aria-label="YENIFY Home">
+          <span class="brand-logo" aria-hidden="true">
+            <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+              <rect width="32" height="32" rx="9" fill="url(#yenifyGrad)" />
+              <path
+                d="M10 9.5L16 17L22 9.5M16 17V23.5"
+                stroke="#09090B"
+                stroke-width="2.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <defs>
+                <linearGradient id="yenifyGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FF4FA3" />
+                  <stop offset="1" stop-color="#FF75B7" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </span>
+          <span class="brand-text">YENIFY</span>
+        </a>
+
+        <button
+          type="button"
+          class="icon-btn sidebar-close-btn"
+          id="sidebarCloseBtn"
+          aria-label="Close navigation menu"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Primary Menu -->
+      <nav class="sidebar-nav" aria-label="Main Menu">
+        <p class="nav-section-label">MENU</p>
+        <ul class="nav-list">
+          <li>
+            <button
+              type="button"
+              class="nav-item active"
+              data-view="all"
+              id="navHomeBtn"
+              aria-current="page"
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5z" stroke-linejoin="round" />
+              </svg>
+              <span>Home</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="nav-item" data-view="explore" id="navExploreBtn">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-3.5-3.5" stroke-linecap="round" />
+              </svg>
+              <span>Browse</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="nav-item" data-view="liked" id="navLikedBtn">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M12 20.5s-7-4.4-9.2-8.6C1.1 8.6 3.3 5 6.9 5c2.1 0 3.8 1.1 5.1 2.7C13.3 6.1 15 5 17.1 5c3.6 0 5.8 3.6 4.1 6.9-2.2 4.2-9.2 8.6-9.2 8.6z"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span>Liked Songs</span>
+              <span class="nav-badge" id="likedCountBadge">0</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="nav-item" data-view="recent" id="navRecentBtn">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span>Recently Played</span>
+              <span class="nav-badge" id="recentCountBadge">0</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Curated Mixes / Playlists -->
+      <div class="sidebar-playlists">
+        <p class="nav-section-label">CURATED MIXES</p>
+        <ul class="playlist-list">
+          <li>
+            <button type="button" class="playlist-link" data-track-id="0">
+              <span class="playlist-dot"></span>
+              <span class="playlist-name">Midnight Velvet R&amp;B</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="playlist-link" data-track-id="1">
+              <span class="playlist-dot"></span>
+              <span class="playlist-name">OPM Acoustic Feels</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="playlist-link" data-track-id="2">
+              <span class="playlist-dot"></span>
+              <span class="playlist-name">Late Night Indie Ballads</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Sidebar Mini Now Playing Card -->
+      <div class="sidebar-now-playing" id="sidebarNowPlaying">
+        <div class="sidebar-np-header">
+          <span class="live-dot"></span>
+          <span>ON DECK</span>
+        </div>
+        <p class="sidebar-np-title" id="sidebarNpTitle">Risk It All</p>
+        <p class="sidebar-np-artist" id="sidebarNpArtist">Bruno Mars</p>
+      </div>
+    </aside>
+
+    <!-- ==================== MAIN CONTENT AREA ==================== -->
+    <div class="main-wrapper" id="top">
+      
+      <!-- Top Header Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button
+            type="button"
+            class="icon-btn mobile-menu-btn"
+            id="mobileMenuBtn"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round" />
+            </svg>
+          </button>
+
+          <!-- Real-Time Search Bar -->
+          <div class="search-box" role="search">
+            <svg
+              class="search-icon"
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="M20 20l-3.5-3.5" stroke-linecap="round" />
+            </svg>
+            <input
+              type="search"
+              id="searchInput"
+              class="search-input"
+              placeholder="Search songs, artists, or genres..."
+              aria-label="Search songs, artists, or genres"
+              autocomplete="off"
+            />
+            <button
+              type="button"
+              class="search-clear-btn"
+              id="searchClearBtn"
+              aria-label="Clear search"
+              hidden
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="status-pill" id="playbackStatusPill">Ready to Stream</span>
+          <div class="user-profile" aria-label="Listener Profile">
+            <span class="user-avatar" aria-hidden="true">Y</span>
+            <span class="user-name">YENIFY Listener</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Content -->
+      <main class="main-content" id="mainContent">
+        
+        <!-- ==================== DASHBOARD GRID: HERO & VINYL SHOWCASE ==================== -->
+        <div class="dashboard-top-grid">
+          <!-- Featured Hero Section -->
+          <section class="hero-section" id="featuredSection" aria-labelledby="featuredHeading">
+            <div class="hero-card">
+              <div class="hero-artwork-wrap">
+                <img
+                  src="assets/images/risk-it-all-cover.jpg"
+                  alt="Risk It All cover art by Bruno Mars"
+                  class="hero-artwork"
+                  id="heroArtwork"
+                />
+                <span class="hero-badge">FEATURED TRACK</span>
+              </div>
+
+              <div class="hero-details">
+                <p class="hero-eyebrow">YENIFY SPOTLIGHT • HIGH-FIDELITY AUDIO</p>
+                <h1 class="hero-title" id="featuredHeading">Risk It All</h1>
+                <p class="hero-subtitle" id="heroArtist">
+                  Bruno Mars <span class="dot-sep">•</span> <span id="heroAlbum">Silk &amp; Neon Sessions</span>
+                </p>
+                <p class="hero-description" id="heroDescription">
+                  Smooth R&amp;B grooves meet late-night soul. Stream curated essentials in lossless clarity with instant queue controls.
+                </p>
+
+                <div class="hero-actions">
+                  <button type="button" class="btn btn-primary" id="heroPlayBtn" data-track-id="0">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <span id="heroPlayBtnText">Play Featured</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="heroLikeBtn"
+                    data-track-id="0"
+                    aria-pressed="false"
+                  >
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                      <path
+                        d="M12 20.5s-7-4.4-9.2-8.6C1.1 8.6 3.3 5 6.9 5c2.1 0 3.8 1.1 5.1 2.7C13.3 6.1 15 5 17.1 5c3.6 0 5.8 3.6 4.1 6.9-2.2 4.2-9.2 8.6-9.2 8.6z"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                    <span>Save to Liked</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ==================== ROTATING VINYL RECORD PLAYER COMPONENT ==================== -->
+          <section class="vinyl-showcase-card" aria-label="Rotating Vinyl Showcase">
+            <div class="vinyl-showcase-header">
+              <span class="live-dot"></span>
+              <h3 class="vinyl-showcase-title">LIVE VINYL PLAYER</h3>
+            </div>
+
+            <div class="vinyl-record-container" id="vinylRecordContainer">
+              <div class="vinyl-disc" id="vinylDisc">
+                <div class="vinyl-grooves"></div>
+                <div class="vinyl-center-label">
+                  <img
+                    src="assets/images/risk-it-all-cover.jpg"
+                    alt="Vinyl center label album artwork"
+                    id="vinylLabelImg"
+                  />
+                </div>
+                <div class="vinyl-spindle"></div>
+              </div>
+              <div class="tonearm" id="toneArm" aria-hidden="true"></div>
+            </div>
+
+            <div class="vinyl-info">
+              <p class="vinyl-song-title" id="vinylSongTitle">Risk It All</p>
+              <p class="vinyl-artist-name" id="vinylArtistName">Bruno Mars</p>
+            </div>
+          </section>
+        </div>
+
+        <!-- ==================== FILTER TABS BAR ==================== -->
+        <section class="filter-bar" aria-label="Library View Filters">
+          <div class="filter-tabs" role="tablist">
+            <button
+              type="button"
+              class="filter-tab active"
+              role="tab"
+              aria-selected="true"
+              data-filter="all"
+              id="tabAll"
+            >
+              All Tracks <span class="tab-count" id="allTracksCount">3</span>
+            </button>
+            <button
+              type="button"
+              class="filter-tab"
+              role="tab"
+              aria-selected="false"
+              data-filter="liked"
+              id="tabLiked"
+            >
+              Liked Songs <span class="tab-count" id="likedTabCount">0</span>
+            </button>
+            <button
+              type="button"
+              class="filter-tab"
+              role="tab"
+              aria-selected="false"
+              data-filter="recent"
+              id="tabRecent"
+            >
+              Recently Played <span class="tab-count" id="recentTabCount">0</span>
+            </button>
+          </div>
+
+          <p class="results-summary" id="resultsSummary" aria-live="polite">
+            Showing all 3 tracks
+          </p>
+        </section>
+
+        <!-- ==================== MUSIC CARDS GRID ==================== -->
+        <section class="cards-section" aria-labelledby="cardsSectionHeading">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title" id="cardsSectionHeading">Featured Releases</h2>
+              <p class="section-subtitle">Click any card to start instant playback</p>
+            </div>
+          </div>
+
+          <div class="music-grid" id="musicGrid">
+            <!-- Card 1: Risk It All — Bruno Mars -->
+            <article
+              class="music-card"
+              data-track-id="0"
+              data-title="Risk It All"
+              data-artist="Bruno Mars"
+              data-genre="R&B / Soul"
+              data-audio="assets/audio/risk-it-all.mp3"
+              data-cover="assets/images/risk-it-all-cover.jpg"
+            >
+              <div class="card-artwork-box">
+                <img
+                  src="assets/images/risk-it-all-cover.jpg"
+                  alt="Risk It All album artwork"
+                  class="card-artwork"
+                  loading="lazy"
+                />
+                <button
+                  type="button"
+                  class="card-play-btn"
+                  data-action="play-track"
+                  data-track-id="0"
+                  aria-label="Play Risk It All by Bruno Mars"
+                >
+                  <svg class="icon-play" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                  <svg class="icon-pause" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                    <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                  </svg>
+                </button>
+                <span class="card-playing-badge" aria-hidden="true">
+                  <span></span><span></span><span></span>
+                </span>
+              </div>
+
+              <div class="card-body">
+                <div class="card-info">
+                  <h3 class="card-title">Risk It All</h3>
+                  <p class="card-artist">Bruno Mars</p>
+                </div>
+                <button
+                  type="button"
+                  class="like-btn"
+                  data-action="toggle-like"
+                  data-track-id="0"
+                  aria-label="Like Risk It All by Bruno Mars"
+                  aria-pressed="false"
+                >
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M12 20.5s-7-4.4-9.2-8.6C1.1 8.6 3.3 5 6.9 5c2.1 0 3.8 1.1 5.1 2.7C13.3 6.1 15 5 17.1 5c3.6 0 5.8 3.6 4.1 6.9-2.2 4.2-9.2 8.6-9.2 8.6z"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="card-meta">
+                <span class="genre-tag">R&amp;B / Soul</span>
+                <span class="card-duration" data-duration-id="0">--:--</span>
+              </div>
+            </article>
+
+            <!-- Card 2: Na Para Bang — Mariah Deborah -->
+            <article
+              class="music-card"
+              data-track-id="1"
+              data-title="Na Para Bang"
+              data-artist="Mariah Deborah"
+              data-genre="OPM Pop"
+              data-audio="assets/audio/na-para-bang.mp3"
+              data-cover="assets/images/na-para-bang-cover.jpg"
+            >
+              <div class="card-artwork-box">
+                <img
+                  src="assets/images/na-para-bang-cover.jpg"
+                  alt="Na Para Bang album artwork"
+                  class="card-artwork"
+                  loading="lazy"
+                />
+                <button
+                  type="button"
+                  class="card-play-btn"
+                  data-action="play-track"
+                  data-track-id="1"
+                  aria-label="Play Na Para Bang by Mariah Deborah"
+                >
+                  <svg class="icon-play" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                  <svg class="icon-pause" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                    <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                  </svg>
+                </button>
+                <span class="card-playing-badge" aria-hidden="true">
+                  <span></span><span></span><span></span>
+                </span>
+              </div>
+
+              <div class="card-body">
+                <div class="card-info">
+                  <h3 class="card-title">Na Para Bang</h3>
+                  <p class="card-artist">Mariah Deborah</p>
+                </div>
+                <button
+                  type="button"
+                  class="like-btn"
+                  data-action="toggle-like"
+                  data-track-id="1"
+                  aria-label="Like Na Para Bang by Mariah Deborah"
+                  aria-pressed="false"
+                >
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M12 20.5s-7-4.4-9.2-8.6C1.1 8.6 3.3 5 6.9 5c2.1 0 3.8 1.1 5.1 2.7C13.3 6.1 15 5 17.1 5c3.6 0 5.8 3.6 4.1 6.9-2.2 4.2-9.2 8.6-9.2 8.6z"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="card-meta">
+                <span class="genre-tag">OPM Pop</span>
+                <span class="card-duration" data-duration-id="1">--:--</span>
+              </div>
+            </article>
+
+            <!-- Card 3: Here With Me — d4vd -->
+            <article
+              class="music-card"
+              data-track-id="2"
+              data-title="Here With Me"
+              data-artist="d4vd"
+              data-genre="Indie / Alternative"
+              data-audio="assets/audio/here-with-me.mp3"
+              data-cover="assets/images/here-with-me-cover.jpg"
+            >
+              <div class="card-artwork-box">
+                <img
+                  src="assets/images/here-with-me-cover.jpg"
+                  alt="Here With Me album artwork"
+                  class="card-artwork"
+                  loading="lazy"
+                />
+                <button
+                  type="button"
+                  class="card-play-btn"
+                  data-action="play-track"
+                  data-track-id="2"
+                  aria-label="Play Here With Me by d4vd"
+                >
+                  <svg class="icon-play" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                  <svg class="icon-pause" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                    <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                  </svg>
+                </button>
+                <span class="card-playing-badge" aria-hidden="true">
+                  <span></span><span></span><span></span>
+                </span>
+              </div>
+
+              <div class="card-body">
+                <div class="card-info">
+                  <h3 class="card-title">Here With Me</h3>
+                  <p class="card-artist">d4vd</p>
+                </div>
+                <button
+                  type="button"
+                  class="like-btn"
+                  data-action="toggle-like"
+                  data-track-id="2"
+                  aria-label="Like Here With Me by d4vd"
+                  aria-pressed="false"
+                >
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M12 20.5s-7-4.4-9.2-8.6C1.1 8.6 3.3 5 6.9 5c2.1 0 3.8 1.1 5.1 2.7C13.3 6.1 15 5 17.1 5c3.6 0 5.8 3.6 4.1 6.9-2.2 4.2-9.2 8.6-9.2 8.6z"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="card-meta">
+                <span class="genre-tag">Indie / Alternative</span>
+                <span class="card-duration" data-duration-id="2">--:--</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ==================== TRACK LIST SECTION ==================== -->
+        <section class="tracklist-section" aria-labelledby="tracklistHeading">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title" id="tracklistHeading">Queue &amp; Tracklist</h2>
+              <p class="section-subtitle">Full catalog ready for seamless playback</p>
+            </div>
+          </div>
+
+          <div class="tracklist-container">
+            <div class="tracklist-header-row" aria-hidden="true">
+              <span class="col-index">#</span>
+              <span class="col-title">TITLE</span>
+              <span class="col-genre">GENRE</span>
+              <span class="col-actions">FAVORITE</span>
+              <span class="col-duration">DURATION</span>
+            </div>
+
+            <div class="tracklist-body" id="tracklistBody" role="list">
+              <!-- Track Row 1 -->
+              <div
+                class="track-row"
+                role="listitem"
+                tabindex="0"
+                data-track-id="0"
+                data-title="Risk It All"
+                data-artist="Bruno Mars"
+                data-genre="R&B / Soul"
+              >
+                <div class="col-index">
+                  <span class="track-num">1</span>
+                  <button
+                    type="button"
+                    class="row-play-trigger"
+                    data-action="play-track"
+                    data-track-id="0"
+                    aria-label="Play Risk It All"
+                  >
+                    <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                      <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="col-title">
+                  <img src="assets/images/risk-it-all-cover.jpg" alt="Risk It All cover" class="row-artwork" />
+                  <div class="row-track-meta">
+                    <span class="row-title">Risk It All</span>
+                    <span class="row-artist">Bruno Mars</span>
+                  </div>
+                </div>
+
+                <div class="col-genre">
+                  <span class="genre-pill">R&amp;B / Soul</span>
+                </div>
+
+                <div class="col-actions">
+                  <button
+                    type="button"
+                    class="like-btn"
+                    data-action="toggle-like"
+                    data-track-id="0"
+                    aria-label="Like Risk It All"
+                    aria-pressed="false"
+                  >
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                      <path
+                        d="M12 20.5s-7-4.4-9.2-8.6C1.1 8.6 3.3 5 6.9 5c2.1 0 3.8 1.1 5.1 2.7C13.3 6.1 15 5 17.1 5c3.6 0 5.8 3.6 4.1 6.9-2.2 4.2-9.2 8.6-9.2 8.6z"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="col-duration" data-row-duration-id="0">--:--</div>
+              </div>
+
+              <!-- Track Row 2 -->
+              <div
+                class="track-row"
+                role="listitem"
+                tabindex="0"
+                data-track-id="1"
+                data-title="Na Para Bang"
+                data-artist="Mariah Deborah"
+                data-genre="OPM Pop"
+              >
+                <div class="col-index">
+                  <span class="track-num">2</span>
+                  <button
+                    type="button"
+                    class="row-play-trigger"
+                    data-action="play-track"
+                    data-track-id="1"
+                    aria-label="Play Na Para Bang"
+                  >
+                    <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                      <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="col-title">
+                  <img src="assets/images/na-para-bang-cover.jpg" alt="Na Para Bang cover" class="row-artwork" />
+                  <div class="row-track-meta">
+                    <span class="row-title">Na Para Bang</span>
+                    <span class="row-artist">Mariah Deborah</span>
+                  </div>
+                </div>
+
+                <div class="col-genre">
+                  <span class="genre-pill">OPM Pop</span>
+                </div>
+
+                <div class="col-actions">
+                  <button
+                    type="button"
+                    class="like-btn"
+                    data-action="toggle-like"
+                    data-track-id="1"
+                    aria-label="Like Na Para Bang"
+                    aria-pressed="false"
+                  >
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                      <path
+                        d="M12 20.5s-7-4.4-9.2-8.6C1.1 8.6 3.3 5 6.9 5c2.1 0 3.8 1.1 5.1 2.7C13.3 6.1 15 5 17.1 5c3.6 0 5.8 3.6 4.1 6.9-2.2 4.2-9.2 8.6-9.2 8.6z"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="col-duration" data-row-duration-id="1">--:--</div>
+              </div>
+
+              <!-- Track Row 3 -->
+              <div
+                class="track-row"
+                role="listitem"
+                tabindex="0"
+                data-track-id="2"
+                data-title="Here With Me"
+                data-artist="d4vd"
+                data-genre="Indie / Alternative"
+              >
+                <div class="col-index">
+                  <span class="track-num">3</span>
+                  <button
+                    type="button"
+                    class="row-play-trigger"
+                    data-action="play-track"
+                    data-track-id="2"
+                    aria-label="Play Here With Me"
+                  >
+                    <svg class="icon-play" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <svg class="icon-pause" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                      <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="col-title">
+                  <img src="assets/images/here-with-me-cover.jpg" alt="Here With Me cover" class="row-artwork" />
+                  <div class="row-track-meta">
+                    <span class="row-title">Here With Me</span>
+                    <span class="row-artist">d4vd</span>
+                  </div>
+                </div>
+
+                <div class="col-genre">
+                  <span class="genre-pill">Indie / Alternative</span>
+                </div>
+
+                <div class="col-actions">
+                  <button
+                    type="button"
+                    class="like-btn"
+                    data-action="toggle-like"
+                    data-track-id="2"
+                    aria-label="Like Here With Me"
+                    aria-pressed="false"
+                  >
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                      <path
+                        d="M12 20.5s-7-4.4-9.2-8.6C1.1 8.6 3.3 5 6.9 5c2.1 0 3.8 1.1 5.1 2.7C13.3 6.1 15 5 17.1 5c3.6 0 5.8 3.6 4.1 6.9-2.2 4.2-9.2 8.6-9.2 8.6z"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="col-duration" data-row-duration-id="2">--:--</div>
+              </div>
+            </div>
+
+            <!-- Empty State Message (Hidden by Default) -->
+            <div class="empty-state" id="emptyState" hidden>
+              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-3.5-3.5" stroke-linecap="round" />
+              </svg>
+              <h3 class="empty-title" id="emptyStateTitle">No matching tracks found</h3>
+              <p class="empty-text" id="emptyStateText">
+                Try searching for another title, artist, or switch back to All Tracks.
+              </p>
+              <button type="button" class="btn btn-secondary" id="resetFilterBtn">Show All Tracks</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================== RECENTLY PLAYED STRIP ==================== -->
+        <section class="recent-section" id="recentSection" aria-labelledby="recentHeading">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title" id="recentHeading">Recently Played</h2>
+              <p class="section-subtitle">Your latest listening history in this session</p>
+            </div>
+            <button type="button" class="text-btn" id="clearRecentBtn" hidden>Clear History</button>
+          </div>
+
+          <div class="recent-list" id="recentList">
+            <p class="recent-placeholder" id="recentPlaceholder">
+              Start playing any track to build your Recently Played history.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ==================== FIXED BOTTOM AUDIO PLAYER BAR ==================== -->
+  <footer class="player-bar" id="playerBar" aria-label="Audio Player Controls">
+    <!-- Left: Current Track Info -->
+    <div class="player-track-info">
+      <div class="player-cover-wrap">
+        <img
+          src="assets/images/risk-it-all-cover.jpg"
+          alt="Current track artwork"
+          class="player-cover"
+          id="playerCover"
+        />
+      </div>
+      <div class="player-meta">
+        <p class="player-title" id="playerTitle">Risk It All</p>
+        <p class="player-artist" id="playerArtist">Bruno Mars</p>
+      </div>
+      <button
+        type="button"
+        class="like-btn player-like-btn"
+        id="playerLikeBtn"
+        aria-label="Like current song"
+        aria-pressed="false"
+      >
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M12 20.5s-7-4.4-9.2-8.6C1.1 8.6 3.3 5 6.9 5c2.1 0 3.8 1.1 5.1 2.7C13.3 6.1 15 5 17.1 5c3.6 0 5.8 3.6 4.1 6.9-2.2 4.2-9.2 8.6-9.2 8.6z"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Center: Transport Controls & Progress Scrubber -->
+    <div class="player-center">
+      <div class="player-controls" role="group" aria-label="Playback Controls">
+        <button
+          type="button"
+          class="control-btn"
+          id="shuffleBtn"
+          aria-label="Toggle shuffle"
+          aria-pressed="false"
+          title="Shuffle"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="control-btn"
+          id="prevBtn"
+          aria-label="Previous track"
+          title="Previous"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="play-pause-btn"
+          id="playPauseBtn"
+          aria-label="Play"
+          title="Play / Pause"
+        >
+          <svg class="icon-play" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          <svg class="icon-pause" viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="control-btn"
+          id="nextBtn"
+          aria-label="Next track"
+          title="Next"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="control-btn"
+          id="repeatBtn"
+          aria-label="Toggle repeat mode"
+          data-repeat-mode="off"
+          title="Repeat: Off"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M17 1l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 23l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class="repeat-one-badge" id="repeatOneBadge" aria-hidden="true">1</span>
+        </button>
+      </div>
+
+      <div class="progress-container">
+        <span class="time-label" id="currentTime">0:00</span>
+        <input
+          type="range"
+          id="progressBar"
+          class="range-slider progress-slider"
+          min="0"
+          max="100"
+          step="0.1"
+          value="0"
+          aria-label="Seek track position"
+        />
+        <span class="time-label" id="totalDuration">0:00</span>
+      </div>
+    </div>
+
+    <!-- Right: Volume & Status -->
+    <div class="player-right">
+      <div class="audio-feedback" id="audioErrorMsg" role="status" aria-live="polite"></div>
+
+      <div class="volume-control">
+        <button
+          type="button"
+          class="control-btn"
+          id="muteBtn"
+          aria-label="Mute audio"
+          aria-pressed="false"
+          title="Mute / Unmute"
+        >
+          <svg class="icon-vol-high" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 5L6 9H2v6h4l5 4V5z" stroke-linejoin="round" />
+            <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" stroke-linecap="round" />
+          </svg>
+          <svg class="icon-vol-muted" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 5L6 9H2v6h4l5 4V5z" stroke-linejoin="round" />
+            <path d="M22 9l-6 6M16 9l6 6" stroke-linecap="round" />
+          </svg>
+        </button>
+
+        <input
+          type="range"
+          id="volumeSlider"
+          class="range-slider volume-slider"
+          min="0"
+          max="1"
+          step="0.01"
+          value="0.8"
+          aria-label="Volume control"
+        />
+      </div>
+    </div>
+  </footer>
+
+  <!-- Hidden HTML5 Audio Engine -->
+  <audio id="audioPlayer" preload="metadata" src="assets/audio/risk-it-all.mp3"></audio>
+
+  <!-- External JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
