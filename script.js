@@ -1,8 +1,8 @@
 /**
  * ==========================================================================
- * YENIFY — Music Streaming Web Application (Phase 3: Complete JavaScript)
- * Architecture: Modular state management, robust audio engine event synchronization,
- * rotating vinyl player synchronization, real-time search, local storage, & accessibility.
+ * YENIFY — Premium Music Streaming Web Application (Phase 3: script.js)
+ * Architecture: Cinematic Intro Lifecycle, Real-Time Audio Synchronization,
+ * Rotating Vinyl Physics, Real-Time Search, LocalStorage Persistence, & Accessibility.
  * ==========================================================================
  */
 
@@ -23,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     currentView: 'all', // 'all' | 'explore' | 'liked' | 'recent'
     searchQuery: '',
     likedTracks: JSON.parse(localStorage.getItem('yenify_liked_tracks')) || [],
-    recentTracks: JSON.parse(localStorage.getItem('yenify_recent_tracks')) || []
+    recentTracks: JSON.parse(localStorage.getItem('yenify_recent_tracks')) || [],
+    introCompleted: false
   };
 
   const tracks = [
@@ -63,6 +64,14 @@ document.addEventListener('DOMContentLoaded', () => {
      2. DOM ELEMENT REFERENCES
      ========================================================================== */
   const audio = document.getElementById('audioPlayer');
+
+  // Cinematic Intro Elements
+  const introScreen = document.getElementById('introScreen');
+  const appShell = document.getElementById('appShell');
+  const enterAppBtn = document.getElementById('enterAppBtn');
+  const skipIntroBtn = document.getElementById('skipIntroBtn');
+  const replayIntroBtn = document.getElementById('replayIntroBtn');
+  const introLoadingText = document.getElementById('introLoadingText');
 
   // Navigation & Sidebar
   const sidebar = document.getElementById('sidebar');
@@ -137,7 +146,78 @@ document.addEventListener('DOMContentLoaded', () => {
   const clearRecentBtn = document.getElementById('clearRecentBtn');
 
   /* ==========================================================================
-     3. INITIALIZATION & STORAGE SYNCHRONIZATION
+     3. INTRO LIFECYCLE & ASSET READINESS SIMULATION
+     ========================================================================== */
+  function initIntroSequence() {
+    const messages = [
+      "Tuning your atmosphere...",
+      "Calibrating high-fidelity audio...",
+      "Loading vinyl grooves & artwork...",
+      "YENIFY environment ready."
+    ];
+
+    let msgIdx = 0;
+    const msgInterval = setInterval(() => {
+      msgIdx++;
+      if (msgIdx < messages.length) {
+        introLoadingText.textContent = messages[msgIdx];
+      } else {
+        clearInterval(msgInterval);
+      }
+    }, 600);
+
+    // Simulate readiness after assets load or timeout
+    setTimeout(() => {
+      clearInterval(msgInterval);
+      introLoadingText.textContent = "YENIFY environment ready.";
+      enterAppBtn.removeAttribute('disabled');
+      enterAppBtn.classList.add('ready');
+    }, 1800);
+  }
+
+  function enterApplication() {
+    if (state.introCompleted) return;
+    state.introCompleted = true;
+
+    introScreen.classList.add('fade-out');
+    appShell.removeAttribute('aria-hidden');
+
+    setTimeout(() => {
+      introScreen.hidden = true;
+    }, 600);
+  }
+
+  function replayIntroSequence() {
+    state.introCompleted = false;
+    introScreen.hidden = false;
+    introScreen.classList.remove('fade-out');
+    appShell.setAttribute('aria-hidden', 'true');
+    introLoadingText.textContent = "Re-tuning atmosphere...";
+    enterAppBtn.setAttribute('disabled', 'true');
+    enterAppBtn.classList.remove('ready');
+
+    setTimeout(() => {
+      introLoadingText.textContent = "YENIFY environment ready.";
+      enterAppBtn.removeAttribute('disabled');
+      enterAppBtn.classList.add('ready');
+    }, 1200);
+  }
+
+  enterAppBtn.addEventListener('click', enterApplication);
+  skipIntroBtn.addEventListener('click', enterApplication);
+  replayIntroBtn.addEventListener('click', replayIntroSequence);
+
+  document.addEventListener('keydown', (e) => {
+    if (!state.introCompleted && (e.code === 'Enter' || e.code === 'Space')) {
+      e.preventDefault();
+      if (!enterAppBtn.hasAttribute('disabled')) {
+        enterApplication();
+      }
+    }
+  });
+
+  /* ==========================================================================
+     4. INITIALIZATION & STORAGE SYNCHRONIZATION
      ========================================================================== */
   function initApp() {
     audio.volume = state.volume;
@@ -149,6 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load initial track metadata without autoplay
     loadTrack(state.currentIndex, false);
+    initIntroSequence();
   }
 
   function persistState() {
@@ -157,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     4. AUDIO ENGINE & ROTATING VINYL SYNCHRONIZATION
+     5. AUDIO ENGINE & ROTATING VINYL SYNCHRONIZATION
      ========================================================================== */
   function loadTrack(index, shouldPlay = true) {
     if (index < 0 || index >= tracks.length) return;
@@ -289,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     5. TIME FORMATTING & SEEKING
+     6. TIME FORMATTING & SEEKING
      ========================================================================== */
   function formatTime(seconds) {
     if (isNaN(seconds) || seconds === 0) return '0:00';
@@ -344,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================================
-     6. VOLUME & MUTE CONTROLS
+     7. VOLUME & MUTE CONTROLS
      ========================================================================== */
   volumeSlider.addEventListener('input', (e) => {
     const val = parseFloat(e.target.value);
@@ -381,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================================
-     7. LIKED SONGS & RECENTLY PLAYED MANAGEMENT
+     8. LIKED SONGS & RECENTLY PLAYED MANAGEMENT
      ========================================================================== */
   function toggleLike(trackId) {
     const id = parseInt(trackId, 10);
@@ -506,7 +587,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     8. SEARCH, FILTERING & VIEW NAVIGATION
+     9. SEARCH, FILTERING & VIEW NAVIGATION
      ========================================================================== */
   function filterAndRenderContent() {
     const query = state.searchQuery.toLowerCase().trim();
@@ -630,7 +711,7 @@ document.addEventListener('DOMContentLoaded', () => {
   tabRecent.addEventListener('click', () => setActiveViewTab('recent'));
 
   /* ==========================================================================
-     9. UI SYNCHRONIZATION & ACTIVE STATE HIGHLIGHTS
+     10. UI SYNCHRONIZATION & ACTIVE STATE HIGHLIGHTS
      ========================================================================== */
   function updateActiveRowAndCardUI() {
     const currentTrackId = state.currentIndex;
@@ -671,7 +752,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ==========================================================================
-     10. EVENT DELEGATION & GLOBAL INTERACTION BINDINGS
+     11. EVENT DELEGATION & GLOBAL INTERACTION BINDINGS
      ========================================================================== */
   playPauseBtn.addEventListener('click', togglePlayPause);
   nextBtn.addEventListener('click', playNextTrack);
@@ -773,7 +854,7 @@ document.addEventListener('DOMContentLoaded', () => {
   sidebarBackdrop.addEventListener('click', closeMobileSidebar);
 
   document.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT') {
+    if (state.introCompleted && e.code === 'Space' && document.activeElement.tagName !== 'INPUT') {
       e.preventDefault();
       togglePlayPause();
     }
